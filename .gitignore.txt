@@ -1,0 +1,4 @@
+backend/node_modules/
+frontend-dashboard/node_modules/
+dist/
+.env
