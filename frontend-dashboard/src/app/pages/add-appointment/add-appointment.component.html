@@ -1,0 +1,63 @@
+<div class="appointment-container">
+  <mat-card class="appointment-card">
+    <div class="header">
+      <span class="mark" aria-hidden="true"></span>
+      <div class="headings">
+        <h2>{{ isEdit ? 'Modifier un rendez-vous' : 'Ajouter un rendez-vous' }}</h2>
+        <p class="subtitle">
+          {{
+            isEdit ? 'Mettez a jour les informations du rendez-vous.' : 'Creez un nouveau rendez-vous.'
+          }}
+        </p>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <mat-form-field appearance="outline">
+        <mat-label>Titre</mat-label>
+        <input matInput formControlName="title" maxlength="80" />
+        <mat-hint align="end">{{ title.value.length }}/80</mat-hint>
+        <mat-error *ngIf="title.touched && title.hasError('required')">Titre obligatoire</mat-error>
+        <mat-error *ngIf="title.touched && title.hasError('maxlength')">
+          Maximum 80 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="4" maxlength="400"></textarea>
+        <mat-hint align="end">{{ description.value.length }}/400</mat-hint>
+        <mat-error *ngIf="description.touched && description.hasError('maxlength')">
+          Maximum 400 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Date</mat-label>
+          <input matInput type="date" formControlName="date" [attr.min]="minDate" />
+          <mat-error *ngIf="date.touched && date.hasError('required')">Date obligatoire</mat-error>
+          <mat-error *ngIf="date.touched && date.hasError('dateInPast')">
+            La date ne peut pas etre dans le passe
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Heure</mat-label>
+          <input matInput type="time" formControlName="time" />
+          <mat-error *ngIf="time.touched && time.hasError('required')">Heure obligatoire</mat-error>
+          <mat-error *ngIf="time.touched && form.hasError('dateTimeInPast')">
+            Choisissez une heure future
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-raised-button type="submit" class="brand-btn" [disabled]="saving || form.invalid">
+          {{ saving ? 'Enregistrement...' : isEdit ? 'Mettre a jour' : 'Ajouter' }}
+        </button>
+        <a mat-stroked-button class="ghost-btn" routerLink="/calendar">Voir le calendrier</a>
+      </div>
+    </form>
+  </mat-card>
+</div>

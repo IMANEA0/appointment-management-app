@@ -1,0 +1,44 @@
+<div class="auth-shell">
+  <mat-card class="auth-card">
+    <div class="auth-header">
+      <span class="mark" aria-hidden="true"></span>
+      <div class="titles">
+        <h1>Mes Rendez-vous</h1>
+        <p class="tagline">Connectez-vous pour gerer vos rendez-vous.</p>
+      </div>
+    </div>
+
+    <h2>Connexion</h2>
+
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" autocomplete="email" />
+        <mat-error *ngIf="email.touched && email.hasError('required')">Email obligatoire</mat-error>
+        <mat-error *ngIf="email.touched && email.hasError('email')">Email invalide</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Mot de passe</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          autocomplete="current-password"
+        />
+        <mat-error *ngIf="password.touched && password.hasError('required')">
+          Mot de passe obligatoire
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" class="brand-btn" [disabled]="loggingIn">
+        {{ loggingIn ? 'Connexion...' : 'Se connecter' }}
+      </button>
+    </form>
+
+    <div class="switch-link">
+      <span>Pas encore de compte ?</span>
+      <a mat-button class="link-btn" routerLink="/register">S'inscrire</a>
+    </div>
+  </mat-card>
+</div>

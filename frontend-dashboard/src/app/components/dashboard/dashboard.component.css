@@ -1,0 +1,23 @@
+.content {
+  padding: 24px 16px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 6px 0 8px;
+  font-size: 26px;
+  letter-spacing: 0.2px;
+  color: var(--text, #1f2d3d);
+}
+
+.subtitle {
+  margin: 0 0 16px;
+  color: rgba(0, 0, 0, 0.66);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}

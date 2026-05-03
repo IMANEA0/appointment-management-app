@@ -1,0 +1,15 @@
+<header class="topbar">
+  <a class="brand" routerLink="/dashboard" aria-label="Mes Rendez-vous">
+    <span class="mark" aria-hidden="true"></span>
+    <span class="title">Mes Rendez-vous</span>
+  </a>
+
+  <div class="spacer"></div>
+
+  <div class="user">
+    <span class="greeting">Bonjour, {{ auth.displayName }}</span>
+    <button mat-stroked-button type="button" class="logout" (click)="logout()">
+      Deconnexion
+    </button>
+  </div>
+</header>

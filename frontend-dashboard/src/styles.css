@@ -1,0 +1,54 @@
+/* Global look & feel (brand + base layout) */
+:root {
+  /* Nouvelle palette "lagon pro" pour se differencier visuellement */
+  --brand-900: #0f355a;
+  --brand-700: #125d8c;
+  --brand-500: #1fa4d4;
+  --brand-300: #8bd9f7;
+
+  --app-bg: #eef4f8;
+  --surface: #ffffff;
+  --text: #1f2d3d;
+  --muted: rgba(0, 0, 0, 0.62);
+
+  --radius-lg: 18px;
+  --shadow-lg: 0 18px 50px rgba(22, 31, 66, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, Arial, sans-serif;
+  background: var(--app-bg);
+  color: var(--text);
+}
+
+/* Snackbar theming (success / error) */
+.snack-success.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #e0f6e9;
+  --mdc-snackbar-supporting-text-color: #0f5132;
+  --mat-snack-bar-button-color: #0f5132;
+  border: 1px solid rgba(15, 81, 50, 0.18);
+}
+
+.snack-error.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #fde7e7;
+  --mdc-snackbar-supporting-text-color: #7a1b1b;
+  --mat-snack-bar-button-color: #7a1b1b;
+  border: 1px solid rgba(122, 27, 27, 0.16);
+}
+
+.snack-success.mat-mdc-snack-bar-container,
+.snack-error.mat-mdc-snack-bar-container {
+  margin-top: 80px;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(20, 24, 60, 0.14);
+}

@@ -1,0 +1,9 @@
+.app-shell {
+  --topbar-h: 0px;
+  min-height: 100vh;
+}
+
+.app-shell.authed {
+  --topbar-h: 72px;
+}
+

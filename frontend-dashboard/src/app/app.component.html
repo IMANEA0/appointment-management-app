@@ -1,0 +1,5 @@
+<div class="app-shell" [class.authed]="auth.isLoggedIn()">
+  <app-topbar *ngIf="auth.isLoggedIn()"></app-topbar>
+  <router-outlet></router-outlet>
+</div>
+

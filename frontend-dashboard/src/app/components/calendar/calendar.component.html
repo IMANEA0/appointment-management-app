@@ -1,0 +1,85 @@
+<div class="calendar-page">
+  <div class="flash" *ngIf="flashMessage" [class.success]="flashType === 'success'" [class.error]="flashType === 'error'">
+    <span class="icon" aria-hidden="true">{{ flashType === 'success' ? '✓' : '!' }}</span>
+    <span class="text">{{ flashMessage }}</span>
+  </div>
+
+  <div class="layout">
+    <section class="panel list" aria-label="Mes rendez-vous">
+      <div class="panel-head">
+        <h3>Mes Rendez-vous</h3>
+        <a class="pill" routerLink="/add-appointment">+ Nouveau</a>
+      </div>
+
+      <div *ngIf="upcomingAppointments.length === 0" class="empty">
+        <p>Aucun rendez-vous pour le moment</p>
+        <a routerLink="/add-appointment" class="create-first">Creer votre premier rendez-vous</a>
+      </div>
+
+      <div class="appointments" *ngIf="upcomingAppointments.length > 0">
+        <article
+          class="appt"
+          *ngFor="let app of upcomingAppointments"
+          [class.active]="normalizeYmd(app.date) === selectedYmd"
+          (click)="selectAppointment(app)">
+          <div class="appt-top">
+            <div class="appt-title">{{ app.title }}</div>
+            <span class="status">SCHEDULED</span>
+          </div>
+
+          <div class="appt-meta">
+            <div class="meta">
+              <span class="dot" aria-hidden="true"></span>
+              <span>{{ formatDate(app.date) }} {{ app.time }}</span>
+            </div>
+            <div class="meta" *ngIf="app.description">
+              <span class="dot ghost" aria-hidden="true"></span>
+              <span class="desc">{{ app.description }}</span>
+            </div>
+          </div>
+
+          <div class="appt-actions" (click)="$event.stopPropagation()">
+            <button type="button" class="action edit" (click)="editAppointment(app)">Modifier</button>
+            <button type="button" class="action delete" (click)="deleteAppointment(app.id)">Supprimer</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel month" aria-label="Calendrier mensuel">
+      <div class="month-head">
+        <button type="button" class="nav" [disabled]="!canGoPrev" (click)="prevMonth()" aria-label="Mois precedent">
+          &#8249;
+        </button>
+        <div class="month-title">{{ monthLabel }}</div>
+        <button type="button" class="nav" (click)="nextMonth()" aria-label="Mois suivant">
+          &#8250;
+        </button>
+      </div>
+
+      <div class="dow" aria-hidden="true">
+        <div class="dow-item" *ngFor="let d of weekdays">{{ d }}</div>
+      </div>
+
+      <div class="grid">
+        <button
+          type="button"
+          class="cell"
+          *ngFor="let cell of cells"
+          [class.out]="!cell.inMonth"
+          [class.past]="cell.past"
+          [class.today]="cell.today"
+          [class.selected]="cell.ymd === selectedYmd"
+          [disabled]="!cell.inMonth || cell.past"
+          (click)="selectDate(cell.ymd)">
+          <span class="day" *ngIf="cell.inMonth">{{ cell.day }}</span>
+
+          <div class="pills" *ngIf="cell.inMonth && cell.appointments.length > 0">
+            <span class="pill-tag">{{ cell.appointments[0].title }}</span>
+            <span class="more" *ngIf="cell.appointments.length > 1">+{{ cell.appointments.length - 1 }}</span>
+          </div>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
